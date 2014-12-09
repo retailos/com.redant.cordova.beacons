@@ -13,7 +13,7 @@ channel.waitForInitialization('onCordovaInfoReady');
  * phone, etc.
  * @constructor
  */
-function Kontakt() {
+function Beacons() {
 }
 
 /**
@@ -22,8 +22,8 @@ function Kontakt() {
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
-Kontakt.prototype.initMonitoringBeacons = function(params, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "Kontakt", "initMonitoringBeacons", params);
+Beacons.prototype.initMonitoringBeacons = function(params, successCallback, errorCallback) {
+    exec(successCallback, errorCallback, "Beacons", "initMonitoringBeacons", params);
 };
 
-module.exports = new Kontakt();
+module.exports = new Beacons();

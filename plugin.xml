@@ -20,97 +20,44 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.redant.cordova.kontakt"
+    id="com.redant.cordova.beacon"
     version="0.0.1-dev">
-    <name>Kontakt</name>
-    <description>Cordova Kontakt Plugin</description>
+    <name>Beacons</name>
+    <description>Cordova Beacons Plugin</description>
     <license>Apache 2.0</license>
-    <keywords>cordova,kontakt</keywords>
+    <keywords>cordova,beacons</keywords>
     <repo></repo>
     <issue></issue>
 
-    <js-module src="www/kontakt.js" name="kontakt">
-        <clobbers target="kontakt" />
+    <js-module src="www/beacons.js" name="beacons">
+        <clobbers target="beacons" />
     </js-module>
 
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Kontakt" >
-                <param name="android-package" value="com.redant.cordova.kontakt.Kontakt"/>
+            <feature name="Beacons" >
+                <param name="android-package" value="com.redant.cordova.beacons.Beacons"/>
             </feature>
         </config-file>
 
-        <source-file src="src/android/Kontakt.java" target-dir="src/com/redant/cordova/kontakt" />
+        <source-file src="src/android/Beacons.java" target-dir="src/com/redant/cordova/beacons" />
     </platform>
 
     <!-- ios -->
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="Kontakt">
-                <param name="ios-package" value="CDVKontakt"/>
+            <feature name="Beacons">
+                <param name="ios-package" value="CDVBeacons"/>
             </feature>
         </config-file>
         
         <framework src="CoreBluetooth.framework" />
 		<framework src="CoreLocation.framework" />
 		<framework src="SystemConfiguration.framework" />
-        <framework src="MessageUI.framework" />
 
-        <header-file src="src/ios/CDVKontakt.h" />
-        <source-file src="src/ios/CDVKontakt.m" />
-        
-        <source-file src="src/ios/libkontakt-ios-sdk.a" framework="true" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKAction.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKActionManager.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKBeacon.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKBeaconDevice.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKBeaconDeviceV2.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKBeaconManager.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKBluetoothDevice.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKBluetoothManager.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKCharacteristicDescriptor.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKClient.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKCompany.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKConverter.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKDataTransferObject.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKDescriptor.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKError.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKFirmware.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKHexConverter.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKLocationManager.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKManager.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKNumberConverter.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKNumberDiscreteConverter.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKNumberLinearConverter.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKRegion.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKServiceDescriptor.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKStringConverter.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKSubordinate.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKUUIDConverter.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKUser.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KTKVenue.h" />
-        <header-file src="src/ios/kontakt-ios-sdk/KontaktSDK.h" />
-        
-        <header-file src="src/ios/AFNetworking/AFHTTPRequestOperation.h" />
-        <source-file src="src/ios/AFNetworking/AFHTTPRequestOperation.m" />
-        <header-file src="src/ios/AFNetworking/AFHTTPRequestOperationManager.h" />
-        <source-file src="src/ios/AFNetworking/AFHTTPRequestOperationManager.m" />
-        <header-file src="src/ios/AFNetworking/AFHTTPSessionManager.h" />
-        <source-file src="src/ios/AFNetworking/AFHTTPSessionManager.m" />
-        <header-file src="src/ios/AFNetworking/AFNetworking.h" />
-        <header-file src="src/ios/AFNetworking/AFNetworkReachabilityManager.h" />
-        <source-file src="src/ios/AFNetworking/AFNetworkReachabilityManager.m" />
-        <header-file src="src/ios/AFNetworking/AFSecurityPolicy.h" />
-        <source-file src="src/ios/AFNetworking/AFSecurityPolicy.m" />
-        <header-file src="src/ios/AFNetworking/AFURLConnectionOperation.h" />
-        <source-file src="src/ios/AFNetworking/AFURLConnectionOperation.m" />
-        <header-file src="src/ios/AFNetworking/AFURLRequestSerialization.h" />
-        <source-file src="src/ios/AFNetworking/AFURLRequestSerialization.m" />
-        <header-file src="src/ios/AFNetworking/AFURLResponseSerialization.h" />
-        <source-file src="src/ios/AFNetworking/AFURLResponseSerialization.m" />
-        <header-file src="src/ios/AFNetworking/AFURLSessionManager.h" />
-        <source-file src="src/ios/AFNetworking/AFURLSessionManager.m" />
+        <header-file src="src/ios/CDVBeacons.h" />
+        <source-file src="src/ios/CDVBeacons.m" />
         
         <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
             <string>This app would like to scan for Beacons when in the background.</string>
