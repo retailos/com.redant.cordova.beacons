@@ -27,10 +27,22 @@
 
     _locationManager.delegate = self;
     [_locationManager startMonitoringForRegion:_beaconRegion];
-    //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+    [_locationManager requestStateForRegion:_beaconRegion];
 }
 
 #pragma mark - CLLocationManagerDelegate method
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    
+    if (state == CLRegionStateInside) {
+        
+        [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+        
+    } else {
+        
+        [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+    }
+}
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
