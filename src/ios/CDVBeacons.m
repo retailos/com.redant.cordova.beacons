@@ -27,7 +27,7 @@
 
     _locationManager.delegate = self;
     [_locationManager startMonitoringForRegion:_beaconRegion];
-    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+    //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
 }
 
 #pragma mark - CLLocationManagerDelegate method
