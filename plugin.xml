@@ -52,6 +52,7 @@
             </feature>
         </config-file>
         
+        <framework src="AdSupport.Framework" />
         <framework src="CoreBluetooth.framework" />
 		<framework src="CoreLocation.framework" />
 		<framework src="SystemConfiguration.framework" />
