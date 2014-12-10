@@ -12,18 +12,33 @@
 - (void)initMonitoringBeacons:(CDVInvokedUrlCommand*)command {
     
     self.sensitivity = [[command.arguments objectAtIndex:0] integerValue];
+    NSString *uuid = [command.arguments objectAtIndex:1]; //@"f7826da6-4fa2-4e98-8024-bc5b71e0893e";
+    NSString *identifier = [command.arguments objectAtIndex:2]; //@"Beacons";
     self.callbackId = command.callbackId;
     
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"f7826da6-4fa2-4e98-8024-bc5b71e0893e"];
-    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"Beacons"];
+    NSUUID *nsuuid = [[NSUUID alloc] initWithUUIDString:uuid];
+    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:nsuuid identifier:identifier];
+    self.locationManager = [[CLLocationManager alloc] init];
     
-    self.locationManager = [CLLocationManager new];
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+
+        [self.locationManager requestAlwaysAuthorization];
+    }
+
     _locationManager.delegate = self;
     [_locationManager startMonitoringForRegion:_beaconRegion];
-    [_locationManager startRangingBeaconsInRegion:_beaconRegion];
+    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
 }
 
 #pragma mark - CLLocationManagerDelegate method
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+    [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+}
 
 - (void)locationManager:(CLLocationManager *)locationManager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     
