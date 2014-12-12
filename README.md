@@ -1,1 +1,1 @@
-# com.redant.cordova.kontakt
+# com.redant.cordova.beacons
