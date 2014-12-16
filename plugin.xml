@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.redant.cordova.beacon"
+    id="com.redant.cordova.beacons"
     version="0.0.1-dev">
     <name>Beacons</name>
     <description>Cordova Beacons Plugin</description>
@@ -59,16 +59,15 @@
                      android:name="com.radiusnetworks.ibeacon.IBeaconIntentProcessor">
                 <meta-data android:name="background" android:value="true" />
                 <intent-filter android:priority="1" >
-                    <action android:name="com.unarin.cordova.beacon.IBeaconPlugin.DID_RANGING" />
-                    <action android:name="com.unarin.cordova.beacon.IBeaconPlugin.DID_MONITORING" />
+                    <action android:name="com.redant.cordova.beacons.IBeaconPlugin.DID_RANGING" />
+                    <action android:name="com.redant.cordova.beacons.IBeaconPlugin.DID_MONITORING" />
                 </intent-filter>
             </service>
         </config-file>
 
-        <source-file src="src/android/LocationManager.java" target-dir="src/com/unarin/cordova/beacon" />
-        <source-file src="src/android/IBeaconServiceNotifier.java" target-dir="src/com/unarin/cordova/beacon" />
-        <source-file src="src/android/ILocationManagerCommand.java" target-dir="src/com/unarin/cordova/beacon" />
-        <source-file src="src/android/PausableThreadPoolExecutor.java" target-dir="src/com/unarin/cordova/beacon" />
+        <source-file src="src/android/IBeaconServiceNotifier.java" target-dir="src/com/redant/cordova/beacons" />
+        <source-file src="src/android/ILocationManagerCommand.java" target-dir="src/com/redant/cordova/beacons" />
+        <source-file src="src/android/PausableThreadPoolExecutor.java" target-dir="src/com/redant/cordova/beacons" />
 
         <source-file src="src/android/com/radiusnetworks/bluetooth/BluetoothCrashResolver.java" target-dir="src/com/radiusnetworks/bluetooth" />
         <source-file src="src/android/com/radiusnetworks/ibeacon/BleNotAvailableException.java" target-dir="src/com/radiusnetworks/ibeacon" />
