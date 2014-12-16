@@ -28,6 +28,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -64,6 +65,7 @@ public class Beacons extends CordovaPlugin implements IBeaconConsumer {
 
 	private CallbackContext callbackId;
 	private Integer sensitivity;
+	private Region region;
 
     /**
      * Constructor.
@@ -80,9 +82,7 @@ public class Beacons extends CordovaPlugin implements IBeaconConsumer {
      */
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        
-        iBeaconManager = IBeaconManager.getInstanceForApplication(cordova.getActivity());
-        iBeaconManager.bind(this);
+
     }
     
     /**
@@ -129,18 +129,33 @@ public class Beacons extends CordovaPlugin implements IBeaconConsumer {
 	///////////////// SETUP AND VALIDATION /////////////////////////////////
     
     private void initBeacons(JSONArray args) {
-       
-        createMonitorCallbacks();
-		createRangingCallbacks();
-        
-        Region region = null;
+      
 		try {
 			
 			sensitivity = Integer.valueOf(args.getString(0));
-	    	String uuid = args.getString(1); //@"f7826da6-4fa2-4e98-8024-bc5b71e0893e";
-	    	String identifier = args.getString(2); //@"Beacons";
-	    
-			region = new Region(identifier,uuid,null,null);
+			String uuid = args.getString(1);//@"f7826da6-4fa2-4e98-8024-bc5b71e0893e";
+			String identifier = args.getString(2); //@"Beacons";
+			
+			region = new Region(identifier, uuid, null, null);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    	
+    	iBeaconManager = IBeaconManager.getInstanceForApplication(cordova.getActivity());
+        iBeaconManager.bind(this);
+        
+        createMonitorCallbacks();
+		createRangingCallbacks();
+    }
+    
+	@Override
+	public void onIBeaconServiceConnect() {
+		debugLog("Connected to IBeacon service");
+		
+		try {
+			
 			iBeaconManager.startMonitoringBeaconsInRegion(region);
 
 		} catch (RemoteException e) {   
@@ -148,7 +163,7 @@ public class Beacons extends CordovaPlugin implements IBeaconConsumer {
 		} catch (Exception e) {
 			Log.e(TAG, "'startMonitoringForRegion' exception "+e.getMessage());
         }
-    }
+	}
 
 	private void initBluetoothListener() {
 	
@@ -344,11 +359,6 @@ public class Beacons extends CordovaPlugin implements IBeaconConsumer {
 	}
     
     //////// IBeaconConsumer implementation /////////////////////
-
-	@Override
-	public void onIBeaconServiceConnect() {
-		debugLog("Connected to IBeacon service");
-	}
 
 	@Override
 	public Context getApplicationContext() {
