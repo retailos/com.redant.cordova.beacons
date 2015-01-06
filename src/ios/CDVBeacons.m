@@ -53,6 +53,8 @@
 }
 
 - (void)locationManager:(CLLocationManager *)locationManager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
+
+    beacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity != %dnspredicate", CLProximityUnknown]];
     
     CLBeacon *beacon = [beacons firstObject];
     
